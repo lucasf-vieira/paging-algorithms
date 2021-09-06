@@ -4,3 +4,4 @@ bin/*
 
 # GitHub files
 .git/*
+.vscode/*
