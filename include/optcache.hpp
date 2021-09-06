@@ -7,7 +7,8 @@ class OPTCache : public Cache
 {
 public:
    OPTCache(int);
-   void refer(int);
+   void refer(int, std::list<int>);
+   int findFarthestRef(std::list<int>);
 };
 
 #endif

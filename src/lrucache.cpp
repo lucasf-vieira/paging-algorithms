@@ -7,26 +7,26 @@ LRUCache::LRUCache(int cacheSize) : Cache(cacheSize) {}
 void LRUCache::refer(int key)
 {
    // not present in cache
-   if (m_cache.find(key) == m_cache.end())
+   if (m_cacheKeys.find(key) == m_cacheKeys.end())
    {
       // cache is full
-      if (m_cacheKeys.size() == getCacheSize())
+      if (m_cache.size() == getCacheSize())
       {
          // delete least recently used element
-         int last = m_cacheKeys.back();
+         int last = m_cache.back();
 
          // Pops the last element
-         m_cacheKeys.pop_back();
+         m_cache.pop_back();
 
          // Erase the last
-         m_cache.erase(last);
+         m_cacheKeys.erase(last);
       }
       incrementPageFaultCount();
    }
 
    // present in cache
    else
-      m_cacheKeys.erase(m_cache[key]);
+      m_cache.erase(m_cacheKeys[key]);
 
    updateReference(key);
    incrementReferCount();

@@ -12,15 +12,17 @@ class Cache
    uint m_pageFaults = 0;
 
 protected:
-   // Store keys of cache
-   std::list<int> m_cacheKeys;
+   // Store pages of cache
+   std::list<int> m_cache;
 
-   // Store references of key in cache
-   std::unordered_map<int, std::list<int>::iterator> m_cache;
+   // Store references of cache keys
+   std::unordered_map<int, std::list<int>::iterator> m_cacheKeys;
 
 public:
    Cache(int);
-   virtual void refer(int) = 0;
+   void refer(int);
+   void refer(int, std::list<int>);
+
    void incrementReferCount();
    void incrementPageFaultCount();
    void display();

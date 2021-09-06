@@ -4,17 +4,16 @@
 
 int main(int argc, char *argv[])
 {
-   //FIFOCache cache(4);
-   LRUCache cache(4);
+   std::list<int> references = {0,2,1,3,5,4,6,3,7,4,7,3,3};
+   //FIFOCache cache(references.size());
+   //LRUCache cache(references.size());
+   OPTCache cache(references.size());
 
-   cache.refer(1);
-   cache.refer(2);
-   cache.refer(3);
-   cache.refer(1);
-   cache.refer(4);
-   cache.refer(5);
-   cache.refer(8);
-   cache.refer(3);
+   while(references.size() > 0)
+   {
+      cache.refer(references.front(), references);
+      references.pop_front();
+   }
    cache.display();
 
    return 0;

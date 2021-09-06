@@ -10,10 +10,11 @@ void Cache::incrementReferCount() { m_referCount++; }
 void Cache::incrementPageFaultCount() { m_pageFaults++; }
 
 // Updates reference to the key in the hash map
+// and pushes page key to the front of the list
 void Cache::updateReference(int key)
 {
-   m_cacheKeys.push_front(key);
-   m_cache[key] = m_cacheKeys.begin();
+   m_cache.push_front(key);
+   m_cacheKeys[key] = m_cache.begin();
 }
 
 // Function to display contents of cache
@@ -21,7 +22,7 @@ void Cache::display()
 {
    // Iterate in the list and print
    // all the elements in it
-   for (auto it = m_cacheKeys.begin(); it != m_cacheKeys.end();
+   for (auto it = m_cache.begin(); it != m_cache.end();
         it++)
       std::cout << (*it) << " ";
 

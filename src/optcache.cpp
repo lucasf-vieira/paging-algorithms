@@ -3,31 +3,47 @@
 // Declare the size
 OPTCache::OPTCache(int cacheSize) : Cache(cacheSize) {}
 
-// Refers key in the OPT cache
-void OPTCache::refer(int key)
+int OPTCache::findFarthestRef(std::list<int> remainingReferences)
 {
-   // not present in cache
-   if (m_cache.find(key) == m_cache.end())
+   std::list<int> foundRefs;
+
+   // Iterate inside remaining references
+   for (auto it_refs = remainingReferences.begin(); it_refs != remainingReferences.end();
+        it_refs++)
    {
-      // cache is full
-      if (m_cacheKeys.size() == getCacheSize())
+      // Iterate cache
+      for (auto it_cache = m_cache.begin(); it_cache != m_cache.end();
+           it_cache++)
       {
-         // delete least recently used element
-         int last = m_cacheKeys.back();
+         if ((*it_refs) == (*it_cache))
+         {
+            foundRefs.push_front(*it_cache);
+            break;
+         }
+      }
 
-         // Pops the last element
-         m_cacheKeys.pop_back();
+      if (foundRefs.size() == getCacheSize())
+         break;
+   }
+   return foundRefs.front();
+}
 
-         // Erase the last
-         m_cache.erase(last);
+// Refers key in the OPT cache
+void OPTCache::refer(int key, std::list<int> remainingReferences)
+{
+   // Not present in cache
+   if (m_cacheKeys.find(key) == m_cacheKeys.end())
+   {
+      // Cache is full
+      if (m_cache.size() == getCacheSize())
+      {
+         // Delete the farthest element to be referenced
+         m_cache.remove(findFarthestRef(remainingReferences));
       }
       incrementPageFaultCount();
+      updateReference(key);
    }
 
-   // present in cache
-   else
-      m_cacheKeys.erase(m_cache[key]);
-
-   updateReference(key);
+   // If present in cache, no update needed
    incrementReferCount();
 }

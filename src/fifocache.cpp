@@ -7,19 +7,19 @@ FIFOCache::FIFOCache(int cacheSize) : Cache(cacheSize) {}
 void FIFOCache::refer(int key)
 {
    // Not present in cache
-   if (m_cache.find(key) == m_cache.end())
+   if (m_cacheKeys.find(key) == m_cacheKeys.end())
    {
       // Cache is full
-      if (m_cacheKeys.size() == getCacheSize())
+      if (m_cache.size() == getCacheSize())
       {
          // Delete last element in the list
-         int last = m_cacheKeys.back();
+         int last = m_cache.back();
 
          // Pops the last element in the list
-         m_cacheKeys.pop_back();
+         m_cache.pop_back();
 
          // Erase the last element
-         m_cache.erase(last);
+         m_cacheKeys.erase(last);
       }
       incrementPageFaultCount();
       updateReference(key);
