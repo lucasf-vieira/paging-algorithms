@@ -20,8 +20,7 @@ protected:
 
 public:
    Cache(int);
-   void refer(int);
-   void refer(int, std::list<int>);
+   virtual void refer(int);
 
    void incrementReferCount();
    void incrementPageFaultCount();

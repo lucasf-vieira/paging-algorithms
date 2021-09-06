@@ -8,6 +8,7 @@ uint Cache::getReferCount() { return m_referCount; }
 uint Cache::getPageFaults() { return m_pageFaults; }
 void Cache::incrementReferCount() { m_referCount++; }
 void Cache::incrementPageFaultCount() { m_pageFaults++; }
+void Cache::refer(int) {}
 
 // Updates reference to the key in the hash map
 // and pushes page key to the front of the list
