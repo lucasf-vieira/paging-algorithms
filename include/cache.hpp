@@ -7,7 +7,7 @@
 
 class Cache
 {
-   size_t m_cacheSize; // Maximum capacity of cache
+   size_t m_frameSize; // Maximum capacity of cache
    uint m_referCount = 0;
    uint m_pageFaults = 0;
 
@@ -24,11 +24,12 @@ public:
 
    void incrementReferCount();
    void incrementPageFaultCount();
-   void display();
+   void displayPageFaults();
+
+   size_t getFrameSize();
+   void setFrameSize(int);
 
    size_t getCacheSize();
-   void setCacheSize(int);
-
    uint getReferCount();
    uint getPageFaults();
 

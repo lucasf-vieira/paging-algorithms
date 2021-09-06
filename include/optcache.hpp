@@ -3,12 +3,14 @@
 
 #include "cache.hpp"
 
+#include <memory>
+
 class OPTCache : public Cache
 {
 public:
    OPTCache(int);
-   void refer(int, std::list<int>);
-   int findFarthestRef(std::list<int>);
+   void refer(int, std::shared_ptr<std::list<int>>);
+   int findFarthestRef(std::shared_ptr<std::list<int>>);
 };
 
 #endif

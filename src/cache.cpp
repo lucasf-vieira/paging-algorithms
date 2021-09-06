@@ -1,9 +1,10 @@
 #include "cache.hpp"
 
-Cache::Cache(int cacheSize) { setCacheSize(cacheSize); }
+Cache::Cache(int cacheSize) { setFrameSize(cacheSize); }
 
-size_t Cache::getCacheSize() { return m_cacheSize; }
-void Cache::setCacheSize(int cacheSize) { m_cacheSize = cacheSize; }
+size_t Cache::getFrameSize() { return m_frameSize; }
+void Cache::setFrameSize(int cacheSize) { m_frameSize = cacheSize; }
+size_t Cache::getCacheSize() { return m_cache.size(); }
 uint Cache::getReferCount() { return m_referCount; }
 uint Cache::getPageFaults() { return m_pageFaults; }
 void Cache::incrementReferCount() { m_referCount++; }
@@ -19,13 +20,7 @@ void Cache::updateReference(int key)
 }
 
 // Function to display contents of cache
-void Cache::display()
+void Cache::displayPageFaults()
 {
-   // Iterate in the list and print
-   // all the elements in it
-   for (auto it = m_cache.begin(); it != m_cache.end();
-        it++)
-      std::cout << (*it) << " ";
-
-   std::cout << "References: " << getReferCount() << " PFs: " << getPageFaults() << std::endl;
+   std::cout << getPageFaults() << " PFs" << std::endl;
 }

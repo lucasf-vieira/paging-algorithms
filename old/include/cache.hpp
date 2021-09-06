@@ -9,7 +9,7 @@
 class Cache
 {
 protected:
-   std::size_t m_cacheSize; // Maximum capacity of cache
+   std::size_t m_frameSize; // Maximum capacity of cache
    int m_pageFaults = 0;
    int m_references = 0;
 

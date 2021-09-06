@@ -10,7 +10,7 @@ void LRUCache::refer(int key)
    if (m_cacheKeys.find(key) == m_cacheKeys.end())
    {
       // cache is full
-      if (m_cache.size() == getCacheSize())
+      if (m_cache.size() == getFrameSize())
       {
          // delete least recently used element
          int last = m_cache.back();

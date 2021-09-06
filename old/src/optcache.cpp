@@ -3,7 +3,7 @@
 // Declare the size
 OPTCache::OPTCache(int cache_size)
 {
-   m_cacheSize = cache_size;
+   m_frameSize = cache_size;
 }
 
 // Refers key within the LRU cache
@@ -15,7 +15,7 @@ void OPTCache::refer(int page_key)
       m_pageFaults++;
 
       // Cache is full
-      if (m_pageFrames.size() == m_cacheSize)
+      if (m_pageFrames.size() == m_frameSize)
       {
          // Delete least recently used element
          int last = m_pageFrames.back();

@@ -10,7 +10,7 @@ void FIFOCache::refer(int key)
    if (m_cacheKeys.find(key) == m_cacheKeys.end())
    {
       // Cache is full
-      if (m_cache.size() == getCacheSize())
+      if (m_cache.size() == getFrameSize())
       {
          // Delete last element in the list
          int last = m_cache.back();

@@ -3,7 +3,7 @@
 // Declare the size
 Cache::Cache(const int cacheSize)
 {
-   m_cacheSize = cacheSize;
+   m_frameSize = cacheSize;
 }
 
 // Function to display contents of cache

@@ -1,20 +1,50 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <fstream>
+
 #include "lrucache.hpp"
 #include "fifocache.hpp"
 #include "optcache.hpp"
+#include "argument_parser.hpp"
 
+// Driver Code
 int main(int argc, char *argv[])
 {
-   std::list<int> references = {0,2,1,3,5,4,6,3,7,4,7,3,3, 9, 0,5,2,1,3,4,5,6,3,2,1,1,1,2,3,6};
-   FIFOCache cache(4);
-   //LRUCache cache(4);
-   //OPTCache cache(4);
+   Parser terminal_parser;
 
-   while(references.size() > 0)
+   if (!terminal_parser.checkArguments(argc, argv))
+      return -1;
+
+   LRUCache lrucache(std::stoi(argv[1]));
+   FIFOCache fifocache(std::stoi(argv[1]));
+   OPTCache optcache(std::stoi(argv[1]));
+
+   uint reference = 0;
+   auto referenceList = std::make_shared<std::list<int>>();
+
+   std::cin >> reference;
+   while (!feof(stdin))
    {
-      cache.refer(references.front());
-      references.pop_front();
+      referenceList->push_front(reference);
+
+      lrucache.refer(reference);
+      fifocache.refer(reference);
+      std::cin >> reference;
    }
-   cache.display();
+
+   while (referenceList->size() > 0)
+   {
+      optcache.refer(referenceList->front(), referenceList);
+      referenceList->pop_front();
+      optcache.displayPageFaults();
+   }
+
+   std::cout << argv[1] << " quadros" << std::endl;
+   std::cout << optcache.getReferCount() << " refs" << std::endl;
+   std::cout << "FIFO: " << fifocache.getPageFaults() << " PFs" << std::endl;
+   std::cout << "LRU: " << lrucache.getPageFaults() << " PFs" << std::endl;
+   std::cout << "OPT: " << optcache.getPageFaults() << " PFs" << std::endl;
 
    return 0;
 }
