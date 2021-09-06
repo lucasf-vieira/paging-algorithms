@@ -21,11 +21,5 @@ void Cache::updateReference(int key)
 // Function to display contents of cache
 void Cache::display()
 {
-   // Iterate in the list and print
-   // all the elements in it
-   for (auto it = m_cache.begin(); it != m_cache.end();
-        it++)
-      std::cout << (*it) << " ";
-
    std::cout << "References: " << getReferCount() << " PFs: " << getPageFaults() << std::endl;
 }
